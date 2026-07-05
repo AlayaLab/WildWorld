@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center">WildWorld: A Large-Scale Dataset for Dynamic World Modeling<br>with Actions and Explicit State toward Generative ARPG</h1>
+<h1 align="center">WildWorld: A Large-Scale Dataset for Dynamic World Modeling with Actions and Explicit State toward Generative ARPG</h1>
 
 <p align="center">
   <a href="https://alaya-studio.github.io/wildworld-project/">
