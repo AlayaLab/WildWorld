@@ -1,10 +1,24 @@
 <div align="center">
 
-<h2>WildWorld: A Large-Scale Dataset for Dynamic World Modeling<br>with Actions and Explicit State toward Generative ARPG</h2>
+<h1 align="center">WildWorld: A Large-Scale Dataset for Dynamic World Modeling<br>with Actions and Explicit State toward Generative ARPG</h1>
 
-[![project page](https://img.shields.io/badge/Project-Page-2ea44f)](https://shandaai.github.io/wildworld-project/)&nbsp;
-[![arXiv](https://img.shields.io/badge/arXiv%20paper-2603.23497-b31b1b.svg)](https://arxiv.org/abs/2603.23497)&nbsp;
-[![YouTube](https://badges.aleen42.com/src/youtube.svg)](https://www.youtube.com/watch?v=9vcSg553r2g)&nbsp;
+<p align="center">
+  <a href="https://alaya-studio.github.io/wildworld-project/">
+    <img src="https://img.shields.io/badge/Project-Page-2ea44f?style=flat&logo=googlechrome&logoColor=white" alt="Project Page">
+  </a>
+  <a href="https://arxiv.org/abs/2603.23497">
+    <img src="https://img.shields.io/badge/arXiv-2603.23497-b31b1b?style=flat&logo=arxiv&logoColor=b31b1b" alt="arXiv">
+  </a>
+  <a href="https://github.com/AlayaLab/WildWorld">
+    <img src="https://img.shields.io/badge/Code-Github-007ec6?style=flat&labelColor=555555&logo=github&logoColor=white" alt="GitHub Code">
+  </a>
+  <a href="https://huggingface.co/datasets/Lixsp11/WildWorld">
+    <img src="https://img.shields.io/badge/Dataset-HuggingFace-FFD21E?style=flat&logo=huggingface&logoColor=yellow" alt="Hugging Face Dataset">
+  </a>
+  <a href="https://www.youtube.com/watch?v=9vcSg553r2g">
+    <img src="https://img.shields.io/badge/YouTube-Video-FF0000?style=flat&logo=youtube&logoColor=red" alt="YouTube Video">
+  </a>
+</p>
 
 </div>
 
@@ -20,6 +34,7 @@ This repo contains the dataset and benchmark code used in
 
 ## 🔥Update
 
+- [2026.07.06] WildWorld is now available on Hugging Face, starting with part 1. We are updating the README with more details.
 - [2026.03.25] We have released our paper — discussions and feedback are warmly welcome!
 
 ## 🧠Introduction
@@ -36,7 +51,10 @@ This repo contains the dataset and benchmark code used in
 
 ## 📦TODO
 
-- [ ] Release WildWorld dataset and WildBench benchmark.
+- [ ] Release parts 1, 2, and 3 of the WildWorld dataset.
+- [ ] Add detailed README and example code.
+- [ ] Release code of WildBench benchmark.
+- [ ] Release WildWorld dataset part2 and part3.
 
 ## 📄License
 
@@ -47,13 +65,10 @@ See [LICENSE](./LICENSE).
 If you find this project helpful, please consider citing:
 
 ```bibtex
-@misc{li2026wildworldlargescaledatasetdynamic,
-      title={WildWorld: A Large-Scale Dataset for Dynamic World Modeling with Actions and Explicit State toward Generative ARPG}, 
-      author={Zhen Li and Zian Meng and Shuwei Shi and Wenshuo Peng and Yuwei Wu and Bo Zheng and Chuanhao Li and Kaipeng Zhang},
-      year={2026},
-      eprint={2603.23497},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2603.23497}, 
+@article{li2026wildworld,
+  title={Wildworld: A large-scale dataset for dynamic world modeling with actions and explicit state toward generative arpg},
+  author={Li, Zhen and Meng, Zian and Shi, Shuwei and Peng, Wenshuo and Wu, Yuwei and Zheng, Bo and Li, Chuanhao and Zhang, Kaipeng},
+  journal={arXiv preprint arXiv:2603.23497},
+  year={2026}
 }
 ```
