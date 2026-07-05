@@ -54,7 +54,6 @@ This repo contains the dataset and benchmark code used in
 - [ ] Release parts 1, 2, and 3 of the WildWorld dataset.
 - [ ] Add detailed README and example code.
 - [ ] Release code of WildBench benchmark.
-- [ ] Release WildWorld dataset part2 and part3.
 
 ## 📄License
 
