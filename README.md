@@ -32,7 +32,7 @@ This repo contains the dataset and benchmark code used in
 
 ## 🔥 Update
 
-- [2026.07.06] WildWorld is now available on Hugging Face, starting with part 1. We are updating the README with more details.
+- [2026.07.06] WildWorld is now available on Hugging Face, starting with part 1 (574 hours)!
 - [2026.03.25] We have released our paper — discussions and feedback are warmly welcome!
 
 ## 🧠 Introduction
