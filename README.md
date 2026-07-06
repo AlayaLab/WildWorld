@@ -49,17 +49,7 @@ This repo contains the dataset and benchmark code used in
 
 ## 🚀 Quick Start
 
-The WildWorld dataset is hosted on [Hugging Face](https://huggingface.co/datasets/Lixsp11/WildWorld) and is planned to be released in three parts:
-
-| Part   | Content                          | Duration    | `rgb.mp4` | `depth.mkv` | `state.csv` | `skeleton.npz` |
-| ------ | -------------------------------- | ----------- | --------- | ----------- | ----------- | -------------- |
-| part 1 | 1v1 | 574h | ~1.8 TB  | ~5.4 TB    | ~26 GB    | ~70 GB       |
-| part 2 | TBD                              | -         | -       | -         | -         | -            |
-| part 3 | TBD                              | -         | -       | -         | -         | -           |
-
-### Directory Layout
-
-One directory per sample, organized as:
+The WildWorld dataset is hosted on [Hugging Face](https://huggingface.co/datasets/Lixsp11/WildWorld) and organized as follows:
 
 ```
 data_part<x>/
@@ -70,6 +60,14 @@ data_part<x>/
 │   └── skeleton.npz   # world-space 3-D joint positions per entity
 └── skeleton_edges.json  # bone connectivity per skeleton type
 ```
+
+It is planned to be released in three parts:
+
+| Part   | Content | Duration | \# Samples | `rgb.mp4` | `depth.mkv` | `state.csv` | `skeleton.npz` |
+| ------ | ------- | -------- | ---------- | --------- | ----------- | ----------- | -------------- |
+| part 1 | 1v1     | 574h     | 3434       | ~1.8 TB   | ~5.4 TB     | ~26 GB      | ~70 GB         |
+| part 2 | TBD     | -        | -          | -         | -           | -           | -              |
+| part 3 | TBD     | -        | -          | -         | -           | -           | -              |
 
 ## 📊 Data Format
 
