@@ -28,16 +28,14 @@ This repo contains the dataset and benchmark code used in
 >
 > Zhen Li, Zian Meng, Shuwei Shi, Wenshuo Peng, Yuwei Wu, Bo Zheng, Chuanhao Li, Kaipeng Zhang
 >
-> 
->
 > Alaya Studio, Shanda AI Research Tokyo; Beijing Institute of Technology; Shanghai Innovation Institute
 
-## 🔥Update
+## 🔥 Update
 
 - [2026.07.06] WildWorld is now available on Hugging Face, starting with part 1. We are updating the README with more details.
 - [2026.03.25] We have released our paper — discussions and feedback are warmly welcome!
 
-## 🧠Introduction
+## 🧠 Introduction
 
 ![pipeline](./assets/framework-arxiv.png)
 
@@ -49,17 +47,131 @@ This repo contains the dataset and benchmark code used in
 - 🕒 **Long-horizon sequences**: clips spanning up to 30+ minutes of continuous gameplay
 - 📝 **Hierarchical captions**: both action-level and sample-level natural language descriptions
 
-## 📦TODO
+## 🚀 Quick Start
 
-- [ ] Release parts 1, 2, and 3 of the WildWorld dataset.
-- [ ] Add detailed README and example code.
+The WildWorld dataset is hosted on [Hugging Face](https://huggingface.co/datasets/Lixsp11/WildWorld) and is planned to be released in three parts:
+
+| Part   | Content                          | Duration    | `rgb.mp4` | `depth.mkv` | `state.csv` | `skeleton.npz` |
+| ------ | -------------------------------- | ----------- | --------- | ----------- | ----------- | -------------- |
+| part 1 | 1v1 | 574h | ~1.8 TB  | ~5.4 TB    | ~26 GB    | ~70 GB       |
+| part 2 | TBD                              | -         | -       | -         | -         | -            |
+| part 3 | TBD                              | -         | -       | -         | -         | -           |
+
+### Directory Layout
+
+One directory per sample, organized as:
+
+```
+data_part<x>/
+├── <id>/
+│   ├── rgb.mp4        # RGB frames at 720p@30 fps, no HUD/UI overlay
+│   ├── depth.mkv      # 8-bit depth map encoded via lossless HEVC
+│   ├── state.csv      # per-frame camera pose, player/monster state
+│   └── skeleton.npz   # world-space 3-D joint positions per entity
+└── skeleton_edges.json  # bone connectivity per skeleton type
+```
+
+## 📊 Data Format
+
+### World State Records (`state.csv`)
+
+State records fall into three categories: camera, player/NPC, and monster.
+
+#### Camera
+
+| Column       | Format             | Meaning                                                      |
+| ------------ | ------------------ | ------------------------------------------------------------ |
+| `camera.K`   | `(fx, fy, cx, cy)` | Camera intrinsics |
+| `camera.pos` | `(x, y, z)`        | Camera position in world coordinates                         |
+| `camera.rot` | `(x, y, z, w)`     | Camera-to-world rotation in the OpenGL camera frame |
+
+#### Player/NPC
+
+A frame may contain multiple players, indexed by `<index>`.
+
+| Column                                       | Meaning                                                      |
+| -------------------------------------------- | ------------------------------------------------------------ |
+| `npc.count`                                  | Number of player characters           |
+| `npc.tracking`                               | Which NPC the camera focuses on    |
+| `npc.list.<index>.type_id`                         | NPC character type id         |
+| `npc.list.<index>.member_id`                       | Party-member id (used by `npc.tracking`)       |
+| `npc.list.<index>.weapon_id`                       | Weapon type id |
+| `npc.list.<index>.pos`                             | `(x, y, z)` player position in world                         |
+| `npc.list.<index>.rot`                             | `(x, y, z, w)` player world rotation       |
+| `npc.list.<index>.motion_bank_id`                  | Animation bank id |
+| `npc.list.<index>.motion_id`                       | Animation clip id |
+| `npc.list.<index>.motion_frame`                    | Current playback frame within the clip |
+| `npc.list.<index>.hp` / `max_hp` / `red_hp`                  | Current / maximum / recoverable health                                    |
+| `npc.list.<index>.sp` / `max_sp`                   | Current / maximum stamina                                    |
+| `npc.list.<index>.atk`                             | Total physical attack (gear + buffs)                         |
+| `npc.list.<index>.wp_atk`                          | Weapon's own physical attack                                 |
+| `npc.list.<index>.attr`                            | Total elemental attack value                                 |
+| `npc.list.<index>.wp_attr`                         | Weapon's own elemental attack value                          |
+| `npc.list.<index>.crit_rate`                       | Critical-hit rate, in `[-1, 1]` (negative = weakened hits)   |
+| `npc.list.<index>.crit_atk_rate`                   | Critical damage multiplier (e.g. `1.25` = +25 %)             |
+| `npc.list.<index>.def`                             | Physical defense (can change with temporary buffs)           |
+| `npc.list.<index>.resist_{fire,water,ice,elec,dragon}` | Elemental resistances                                    |
+
+#### Monster
+
+A frame may contain multiple monsters, indexed by `<index>`.
+
+| Column                          | Meaning                                                      |
+| ------------------------------- | ------------------------------------------------------------ |
+| `monster.count`                 | Number of monsters currently present           |
+| `monster.list.<index>.type_id`        | Monster species type id; `nan` on frames where the monster is absent |
+| `monster.list.<index>.pos`            | `(x, y, z)` monster position in world                        |
+| `monster.list.<index>.rot`            | `(x, y, z, w)` monster world rotation (unit quaternion)      |
+| `monster.list.<index>.motion_bank_id` | Animation bank id                                            |
+| `monster.list.<index>.motion_id`      | Animation clip id                                            |
+| `monster.list.<index>.motion_frame`   | Current playback frame within the clip                       |
+| `monster.list.<index>.hp` / `max_hp`  | Current / maximum health                                     |
+| `monster.list.<index>.cond`           | Active status conditions, `angry` / `stun` / `poison` / `sleep` / `paralyse` / `parry` / `tired` / `block_npc`, or `none` |
+
+### Skeleton Joints (`skeleton.npz`)
+
+Each sample's `skeleton.npz` holds one array per entity instance, keyed `<kind><index>_<type_id>`:
+
+- **kind**: `m` = monster, `n` = player character, `w` = the player's weapon
+- **index**: entity index number
+- **type_id**: skeleton type id, i.e. monster species type id / player character type id / weapon type id (matches `type_id` / `weapon_id`)
+- **value**: `(N, J, 3) float32`, world-space joint positions per frame
+
+Example: `m1_21` (monster index 1, species 21).
+
+#### Bone Connectivity (`skeleton_edges.json`)
+
+The joint axis `J` has a **fixed, deterministic order per `type_id`**. Bone connectivity is shipped in `skeleton_edges.json`, one entry per skeleton type:
+
+```json
+{
+  "em_21":  [[0, 3], [1, 5], ...],   // monsters:  key = "em_<type_id>"
+  "npc":    [[0, 2], [0, 31], ...],  // player:    single shared skeleton
+  "wp_4":   [[0, 1], ...],           // weapons:   key = "wp_<type_id>"
+  ...
+}
+```
+
+#### Visualization
+
+The `scripts/` directory provides code for rendering skeletons into videos, as shown in the intro video:
+
+```bash
+python scripts/render_skeleton_video.py data_part<x>/<id> --edges skeleton_edges.json --overlay-rgb -o skeleton.mp4
+```
+
+## 📦 Checklist
+
+- [x] Release part 1 of the WildWorld dataset.
+- [ ] Release WildWorld dataset part 2 and part 3.
+- [x] Add detailed README and example code.
 - [ ] Release code of WildBench benchmark.
 
-## 📄License
+## 📄 License
 
 See [LICENSE](./LICENSE).
 
-## 📖Citation
+## 📖 Citation
 
 If you find this project helpful, please consider citing:
 

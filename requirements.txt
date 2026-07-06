@@ -1,0 +1,5 @@
+# Also requires the `ffmpeg` binary on PATH (frames are piped to it for encoding).
+numpy>=2.0          # 2.3.5
+opencv-python-headless>=4.10  # 4.13.0.92
+scipy>=1.14         # 1.17.1
+tqdm>=4.66          # 4.67.3
