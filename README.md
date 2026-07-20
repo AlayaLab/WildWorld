@@ -12,7 +12,7 @@
   <a href="https://github.com/AlayaLab/WildWorld">
     <img src="https://img.shields.io/badge/Code-Github-007ec6?style=flat&labelColor=555555&logo=github&logoColor=white" alt="GitHub Code">
   </a>
-  <a href="https://huggingface.co/datasets/Lixsp11/WildWorld">
+  <a href="https://huggingface.co/datasets/AlayaLab/WildWorld">
     <img src="https://img.shields.io/badge/Dataset-HuggingFace-FFD21E?style=flat&logo=huggingface&logoColor=yellow" alt="Hugging Face Dataset">
   </a>
   <a href="https://www.youtube.com/watch?v=9vcSg553r2g">
@@ -49,7 +49,7 @@ This repo contains the dataset and benchmark code used in
 
 ## 🚀 Quick Start
 
-The WildWorld dataset is hosted on [Hugging Face](https://huggingface.co/datasets/Lixsp11/WildWorld) and organized as follows:
+The WildWorld dataset is hosted on [Hugging Face](https://.co/datasets/AlayaLab/WildWorld) and organized as follows:
 
 ```
 data_part<x>/
